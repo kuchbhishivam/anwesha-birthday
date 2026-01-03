@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Birthday ❤️ {{ girl_name }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="wrap">
+    <header class="card hero">
+      <div class="hero-left">
+        <h1>Happy Birthday, <span class="name">{{ girl_name }}</span> 🎉</h1>
+        {% if subtitle %}<p class="lead">{{ subtitle }}</p>{% endif %}
+        <div class="msg">{{ message_html|safe }}</div>
+        <div class="from">— With love, {{ from_name }}</div>
+        <div class="actions">
+          <button id="celebrate" class="btn">Celebrate 🎊</button>
+          <button id="play" class="btn outline">Play Slideshow ▶</button>
+        </div>
+      </div>
+      <div class="hero-right">
+        <!-- Bouquet block (tulips & roses with subtle realistic gradients) -->
+        <div class="bouquet">
+          <img class="flower tulip t1" src="{{ url_for('static', filename='img/tulip.svg') }}" alt="tulip">
+          <img class="flower tulip t2" src="{{ url_for('static', filename='img/tulip.svg') }}" alt="tulip">
+          <img class="flower rose r1"  src="{{ url_for('static', filename='img/rose.svg') }}" alt="rose">
+          <img class="flower rose r2"  src="{{ url_for('static', filename='img/rose.svg') }}" alt="rose">
+          <div class="stem s1"></div>
+          <div class="stem s2"></div>
+          <div class="stem s3"></div>
+        </div>
+      </div>
+    </header>
+
+    <section class="card gallery">
+      <div class="frame">
+        <img id="photo" src="{{ photos[0] if photos else url_for('static', filename='img/placeholder.png') }}" alt="photo"/>
+      </div>
+      <div class="controls">
+        <button class="btn" id="prev">◀ Prev</button>
+        <button class="btn" id="next">Next ▶</button>
+      </div>
+      <p class="hint">Put your photos in <code>static/photos</code>. Supported: .png .jpg .jpeg .webp .gif</p>
+    </section>
+  </div>
+
+  <!-- Confetti & petals -->
+  <div id="confetti" class="confetti"></div>
+  <div id="petals" class="petals"></div>
+
+  <script>
+    const photos = {{ photos|tojson }};
+  </script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
