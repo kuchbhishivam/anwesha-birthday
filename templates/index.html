@@ -19,37 +19,39 @@
 
         <div class="actions">
           <button id="celebrate" class="btn">Celebrate 🎊</button>
-          <!-- ❌ Play Slideshow button REMOVED -->
         </div>
       </div>
 
+      <!-- ===== RIGHT SIDE : SAME PLACE TRANSITION ===== -->
       <div class="hero-right">
-        <!-- Tulip Bouquet Overlay (REAL images) -->
-        <div id="bouquetOverlay">
-          <img
-            id="bouquetImg"
-            src="{{ url_for('static', filename='img/tulip1.jpg') }}"
-            alt="Tulip Bouquet">
-          <p class="tap-note">Tap the bouquet 🌷</p>
+        <div class="stage">
+
+          <!-- 🌷 Tulip Bouquet (TOP layer) -->
+          <div id="bouquet" class="bouquet">
+            <img src="{{ url_for('static', filename='img/tulip1.jpg') }}" class="tulip-img" alt="tulip">
+            <img src="{{ url_for('static', filename='img/tulip2.jpg') }}" class="tulip-img" alt="tulip">
+            <p class="tap-note">Tap the bouquet 🌷</p>
+          </div>
+
+          <!-- 🖼️ Photo (SAME PLACE, hidden initially) -->
+          <div class="photo-layer">
+            <img
+              id="photo"
+              src="{{ photos[0] if photos else '' }}"
+              alt="photo">
+          </div>
+
         </div>
       </div>
     </header>
 
-    <!-- ================= GALLERY ================= -->
+    <!-- ================= CONTROLS + FOOTER ================= -->
     <section class="card gallery">
-      <div class="frame">
-        <img
-          id="photo"
-          src="{{ photos[0] if photos else url_for('static', filename='img/placeholder.png') }}"
-          alt="photo"/>
-      </div>
-
       <div class="controls">
         <button class="btn" id="prev">◀ Prev</button>
         <button class="btn" id="next">Next ▶</button>
       </div>
 
-      <!-- ❌ Old hint removed -->
       <p class="footer-note">
         Specially for bail 🐂 ladki and the best ladki ever 💖
       </p>
@@ -71,4 +73,3 @@
   <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>
-
