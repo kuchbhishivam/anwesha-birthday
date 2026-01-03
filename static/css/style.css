@@ -1,40 +1,131 @@
-/* ================= Bouquet Overlay ================= */
-#bouquetOverlay {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+*{box-sizing:border-box}
+:root{--bg:#fff8fb;--card:#fff;--accent:#ff6fa3;--muted:#686868}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;
+  background:linear-gradient(180deg,var(--bg),#fff);
+  color:#222
+}
+.wrap{max-width:1024px;margin:28px auto;padding:20px}
+
+.card{
+  background:var(--card);
+  border-radius:20px;
+  padding:20px;
+  box-shadow:0 12px 30px rgba(120,80,120,.08);
+  position:relative;
+  overflow:hidden
 }
 
-#bouquetImg {
-  width: 300px;
-  max-width: 90%;
-  cursor: pointer;
-  transition: opacity 1s ease, transform 1s ease;
+/* ================= HERO ================= */
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}
+@media (max-width:900px){.hero{grid-template-columns:1fr}}
+
+h1{margin:0 0 6px;font-size:2.2rem}
+.lead{margin:8px 0 16px;color:var(--muted)}
+.name{color:#e91e63}
+.msg{font-size:1.06rem;line-height:1.65}
+.from{margin-top:8px;color:var(--muted)}
+.actions{display:flex;gap:10px;margin-top:14px}
+.btn{
+  background:var(--accent);
+  border:none;
+  color:#fff;
+  padding:10px 14px;
+  border-radius:12px;
+  cursor:pointer;
+  box-shadow:0 6px 16px rgba(255,111,163,.28)
+}
+.btn.outline{background:#fff;color:#e91e63;border:2px solid #ffd1e1}
+
+/* ================= TULIP BOUQUET OVERLAY ================= */
+#bouquetOverlay{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  height:100%;
 }
 
-#bouquetOverlay.hide #bouquetImg {
-  opacity: 0;
-  transform: scale(0.95);
+#bouquetImg{
+  width:300px;
+  max-width:90%;
+  cursor:pointer;
+  transition:opacity 1s ease, transform 1s ease;
 }
 
-.tap-note {
-  margin-top: 10px;
-  color: #c2185b;
-  font-size: 1rem;
+#bouquetOverlay.hide #bouquetImg{
+  opacity:0;
+  transform:scale(0.95);
 }
 
-/* ================= Desktop image cut FIX ================= */
-.frame img {
-  width: 100%;
-  height: auto;
-  max-height: 70vh;
-  object-fit: contain;
+.tap-note{
+  margin-top:10px;
+  color:#c2185b;
+  font-size:1rem;
 }
 
-.footer-note {
-  text-align: center;
-  color: #777;
-  margin-top: 12px;
+/* ================= GALLERY ================= */
+.gallery{margin-top:22px;display:grid;gap:10px;align-items:center}
+.frame{
+  width:100%;
+  max-height:520px;
+  border-radius:16px;
+  overflow:hidden;
+  background:#eee;
+  display:flex;
+  justify-content:center;
+  align-items:center
+}
+
+/* 🔥 DESKTOP IMAGE CUT FIX */
+.frame img{
+  width:100%;
+  height:auto;
+  max-height:70vh;
+  object-fit:contain;
+}
+
+.controls{display:flex;gap:10px;justify-content:center}
+
+/* ================= FOOTER NOTE ================= */
+.footer-note{
+  text-align:center;
+  color:#777;
+  margin-top:10px;
+  font-size:.95rem
+}
+
+/* ================= CONFETTI & PETALS ================= */
+.confetti{
+  position:fixed;
+  left:0;top:0;
+  width:100%;height:100%;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:50
+}
+.confetti .piece{
+  position:absolute;
+  width:10px;height:14px;
+  opacity:0;
+  transform:translateY(-50vh)
+}
+
+.petals{
+  position:fixed;
+  left:0;top:0;
+  width:100%;height:100%;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:40
+}
+.petal{
+  position:absolute;
+  width:16px;height:10px;
+  background:radial-gradient(circle at 30% 30%, #ffc0cb, #ff5e7a 70%);
+  border-radius:50% 50% 50% 50%/60% 60% 40% 40%;
+  opacity:.85;
+  transform:rotate(0deg)
 }
