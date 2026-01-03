@@ -6,69 +6,73 @@
   <title>Happy Birthday ❤️ {{ girl_name }}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
+
 <body>
-  <div class="wrap">
+<div class="wrap">
 
-    <!-- ================= HERO SECTION ================= -->
-    <header class="card hero">
-      <div class="hero-left">
-        <h1>Happy Birthday, <span class="name">{{ girl_name }}</span> 🎉</h1>
-        {% if subtitle %}<p class="lead">{{ subtitle }}</p>{% endif %}
-        <div class="msg">{{ message_html|safe }}</div>
-        <div class="from">— With love, {{ from_name }}</div>
+  <!-- ================= HERO ================= -->
+  <header class="card hero">
 
-        <div class="actions">
-          <button id="celebrate" class="btn">Celebrate 🎊</button>
-        </div>
+    <div class="hero-left">
+      <h1>Happy Birthday, <span class="name">{{ girl_name }}</span> 🎉</h1>
+      {% if subtitle %}<p class="lead">{{ subtitle }}</p>{% endif %}
+      <div class="msg">{{ message_html|safe }}</div>
+      <div class="from">— With love, {{ from_name }}</div>
+
+      <div class="actions">
+        <button id="celebrate" class="btn">Celebrate 🎊</button>
       </div>
+    </div>
 
-      <!-- ===== RIGHT SIDE : SAME FRAME TRANSITION ===== -->
-      <div class="hero-right">
-        <div class="stage" id="stage">
+    <!-- RIGHT SIDE : SAME FRAME -->
+    <div class="hero-right">
+      <div class="stage" id="stage">
 
-          <!-- 🌷 SINGLE TULIP BOUQUET -->
-          <img
-            id="bouquet"
-            src="{{ url_for('static', filename='img/tulip1.jpg') }}"
-            class="bouquet-img"
-            alt="Tulip Bouquet"
-          >
+        <!-- 🌷 BOUQUET -->
+        <img
+          id="bouquet"
+          class="bouquet-img"
+          src="{{ url_for('static', filename='img/tulip1.jpg') }}"
+          alt="Tulip Bouquet"
+        >
 
-          <!-- 🖼️ PHOTO (same place, hidden initially) -->
-          <img
-            id="photo"
-            class="stage-photo"
-            src=""
-            alt="photo"
-          >
+        <!-- 🖼️ PHOTO -->
+        <img
+          id="photo"
+          class="stage-photo"
+          alt="photo"
+        >
 
-          <!-- 👇 TAP TEXT BELOW IMAGE -->
-          <div class="tap-hint" id="tapHint">Tap on bouquet 🌷</div>
-
+        <div class="tap-hint" id="tapHint">
+          Tap the bouquet 🌷
         </div>
+
       </div>
-    </header>
+    </div>
 
-    <!-- ================= FOOTER ================= -->
-    <section class="card gallery">
-      <p class="footer-note">
-        Specially for bail 🐂 ladki and the best ladki ever 💖
-      </p>
-    </section>
-  </div>
+  </header>
 
-  <!-- Confetti & petals -->
-  <div id="confetti" class="confetti"></div>
-  <div id="petals" class="petals"></div>
+  <!-- ================= FOOTER ================= -->
+  <section class="card gallery">
+    <p class="footer-note">
+      Specially for bail 🐂 ladki and the best ladki ever 💖
+    </p>
+  </section>
 
-  <!-- Background Music -->
-  <audio id="birthdayMusic" loop>
-    <source src="{{ url_for('static', filename='audio/birthdayMusic.mp3') }}" type="audio/mpeg">
-  </audio>
+</div>
 
-  <script>
-    const photos = {{ photos|tojson }};
-  </script>
-  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+<!-- EFFECT LAYERS -->
+<div id="confetti" class="confetti"></div>
+<div id="petals" class="petals"></div>
+
+<!-- MUSIC -->
+<audio id="birthdayMusic" loop>
+  <source src="{{ url_for('static', filename='audio/birthdayMusic.mp3') }}" type="audio/mpeg">
+</audio>
+
+<script>
+  const photos = {{ photos|tojson }};
+</script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>
