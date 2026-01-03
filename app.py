@@ -17,22 +17,32 @@ def load_config():
     }
 
 def get_photos():
-    p = Path("static/photos")
+    p = Path(app.static_folder) / "photos"
     photos = []
+
+    if not p.exists():
+        return photos
+
     for ext in ("*.png","*.jpg","*.jpeg","*.webp","*.gif"):
-        photos.extend(sorted([f"static/photos/{x.name}" for x in p.glob(ext)]))
+        for x in sorted(p.glob(ext)):
+            photos.append(f"/static/photos/{x.name}")
+
     return photos
 
 @app.route("/")
 def index():
     cfg = load_config()
     photos = get_photos()
+
     return render_template(
         "index.html",
         girl_name=cfg.get("girl_name","[Name]"),
         from_name=cfg.get("from_name","[Your Name]"),
         subtitle=cfg.get("subtitle",""),
-        message_html=cfg.get("message_html","<p>Happy Birthday! Wishing you lots of love and happiness.</p>"),
+        message_html=cfg.get(
+            "message_html",
+            "<p>Happy Birthday! Wishing you lots of love and happiness.</p>"
+        ),
         photos=photos
     )
 
