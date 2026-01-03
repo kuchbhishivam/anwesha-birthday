@@ -2,12 +2,14 @@
 const photoEl = document.getElementById('photo');
 let idx = 0;
 
+photoEl.style.opacity = "0";
+
 function show(i){
   if(!photos || photos.length===0) return;
   idx = (i + photos.length) % photos.length;
   photoEl.src = photos[idx];
 
-  /* 🔴 LAST PHOTO → STOP MUSIC */
+  /* LAST PHOTO → STOP MUSIC */
   if(idx === photos.length - 1){
     stopMusicSmoothly();
   }
@@ -71,15 +73,20 @@ if(bouquetImg && bouquetOverlay && music){
     music.play().catch(()=>{});
     bouquetOverlay.classList.add("hide");
 
-    startPetals();   // 🌸 PART-2B
+    startPetals();  
 
-    setTimeout(()=>{
-      startSlideshow();
-    },700);
+setTimeout(()=>{
+  // photo fade-in
+  photoEl.style.opacity = "1";
+
+  // start slideshow AFTER photo visible
+  startSlideshow();
+},700);
+
   });
 }
 
-/* ================= CONFETTI ================= */
+/* ================= C================= */
 document.getElementById('celebrate').addEventListener('click',()=>{
   burstConfetti();
   startPetals();
