@@ -28,6 +28,7 @@ h1{margin:0 0 6px;font-size:2.2rem}
 .msg{font-size:1.06rem;line-height:1.65}
 .from{margin-top:8px;color:var(--muted)}
 .actions{display:flex;gap:10px;margin-top:14px}
+
 .btn{
   background:var(--accent);
   border:none;
@@ -37,9 +38,8 @@ h1{margin:0 0 6px;font-size:2.2rem}
   cursor:pointer;
   box-shadow:0 6px 16px rgba(255,111,163,.28)
 }
-.btn.outline{background:#fff;color:#e91e63;border:2px solid #ffd1e1}
 
-/* ================= TULIP BOUQUET OVERLAY ================= */
+/* ================= TULIP BOUQUET ================= */
 #bouquetOverlay{
   display:flex;
   flex-direction:column;
@@ -52,6 +52,11 @@ h1{margin:0 0 6px;font-size:2.2rem}
   width:300px;
   max-width:90%;
   cursor:pointer;
+  border-radius:16px;
+
+  /* 🌷 GLOW EFFECT */
+  box-shadow:0 0 28px rgba(255,105,180,0.65);
+
   transition:opacity 1s ease, transform 1s ease;
 }
 
@@ -67,7 +72,7 @@ h1{margin:0 0 6px;font-size:2.2rem}
 }
 
 /* ================= GALLERY ================= */
-.gallery{margin-top:22px;display:grid;gap:10px;align-items:center}
+.gallery{margin-top:22px;display:grid;gap:10px}
 .frame{
   width:100%;
   max-height:520px;
@@ -89,7 +94,7 @@ h1{margin:0 0 6px;font-size:2.2rem}
 
 .controls{display:flex;gap:10px;justify-content:center}
 
-/* ================= FOOTER NOTE ================= */
+/* ================= FOOTER ================= */
 .footer-note{
   text-align:center;
   color:#777;
@@ -100,32 +105,28 @@ h1{margin:0 0 6px;font-size:2.2rem}
 /* ================= CONFETTI & PETALS ================= */
 .confetti{
   position:fixed;
-  left:0;top:0;
-  width:100%;height:100%;
+  inset:0;
   pointer-events:none;
-  overflow:hidden;
   z-index:50
 }
 .confetti .piece{
   position:absolute;
-  width:10px;height:14px;
+  width:10px;
+  height:14px;
   opacity:0;
-  transform:translateY(-50vh)
 }
 
 .petals{
   position:fixed;
-  left:0;top:0;
-  width:100%;height:100%;
+  inset:0;
   pointer-events:none;
-  overflow:hidden;
   z-index:40
 }
 .petal{
   position:absolute;
-  width:16px;height:10px;
+  width:16px;
+  height:10px;
   background:radial-gradient(circle at 30% 30%, #ffc0cb, #ff5e7a 70%);
   border-radius:50% 50% 50% 50%/60% 60% 40% 40%;
-  opacity:.85;
-  transform:rotate(0deg)
+  opacity:.85
 }
