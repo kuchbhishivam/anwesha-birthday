@@ -1,106 +1,114 @@
-const stage   = document.getElementById("stage");
-const bouquet = document.getElementById("bouquet");
-const photo   = document.getElementById("photo");
-const tapHint = document.getElementById("tapHint");
-const music   = document.getElementById("birthdayMusic");
-const celebrate = document.getElementById("celebrate");
-
+/* ================= SLIDESHOW ================= */
+const photoEl = document.getElementById('photo');
 let idx = 0;
-let started = false;
-let timer = null;
 
-/* hide photo initially */
-photo.style.opacity = "0";
-
-/* ===== SLIDESHOW ===== */
 function show(i){
   if(!photos || photos.length===0) return;
   idx = (i + photos.length) % photos.length;
-  photo.src = photos[idx];
-
-  if(idx === photos.length-1){
-    stopMusic();
-    clearInterval(timer);
-  }
+  photoEl.src = photos[idx];
 }
+
+document.getElementById('prev').addEventListener('click', ()=> show(idx-1));
+document.getElementById('next').addEventListener('click', ()=> show(idx+1));
+
+/* ================= AUTO SLIDESHOW ================= */
+let timer = null;
 
 function startSlideshow(){
-  show(0);
-  timer = setInterval(()=>show(idx+1),2800);
+  if(timer) return;
+  timer = setInterval(()=>show(idx+1), 2800);
 }
 
-/* ===== MUSIC ===== */
-function stopMusic(){
-  let v = music.volume;
-  const f = setInterval(()=>{
-    v -= .05;
-    if(v<=0){
-      clearInterval(f);
-      music.pause();
-      music.currentTime=0;
-      music.volume=1;
-    }else music.volume=v;
-  },150);
+/* ================= TULIP BOUQUET FLOW ================= */
+const bouquetImg = document.getElementById("bouquetImg");
+const bouquetOverlay = document.getElementById("bouquetOverlay");
+const music = document.getElementById("birthdayMusic");
+
+/* Bouquet images (JPG) */
+let bouquetIndex = 0;
+const bouquetImages = [
+  "/static/img/tulip1.jpg",
+  "/static/img/tulip2.jpg"
+];
+
+/* Bouquet soft animation */
+setInterval(() => {
+  if (bouquetImg && !bouquetOverlay.classList.contains("hide")) {
+    bouquetIndex = (bouquetIndex + 1) % bouquetImages.length;
+    bouquetImg.style.opacity = 0;
+    setTimeout(() => {
+      bouquetImg.src = bouquetImages[bouquetIndex];
+      bouquetImg.style.opacity = 1;
+    }, 500);
+  }
+}, 2500);
+
+/* On bouquet tap */
+if (bouquetImg && bouquetOverlay && music) {
+  bouquetImg.addEventListener("click", () => {
+
+    /* 🎵 Start music */
+    music.play().catch(() => {});
+
+    /* 🌷 Fade bouquet */
+    bouquetOverlay.classList.add("hide");
+
+    /* ▶ Auto start slideshow */
+    setTimeout(() => {
+      startSlideshow();
+    }, 700);
+  });
 }
 
-/* ===== BOUQUET TAP ===== */
-bouquet.addEventListener("click",()=>{
-  if(started) return;
-  started = true;
-
-  music.play().catch(()=>{});
-  stage.classList.add("show-photo");
-  tapHint.style.opacity="0";
-  startPetals();
-
-  setTimeout(startSlideshow,600);
-});
-
-/* tap photo → next */
-photo.addEventListener("click",()=>show(idx+1));
-
-/* celebrate */
-celebrate.addEventListener("click",()=>{
+/* ================= CONFETTI ================= */
+document.getElementById('celebrate').addEventListener('click', ()=>{
   burstConfetti();
   startPetals();
 });
 
-/* ===== CONFETTI ===== */
 function burstConfetti(){
-  const c=document.getElementById("confetti");
-  c.innerHTML="";
+  const container = document.getElementById('confetti');
+  container.innerHTML='';
   for(let i=0;i<70;i++){
-    const e=document.createElement("div");
-    e.style.left=Math.random()*100+"%";
-    e.style.top="-10%";
-    e.style.width="8px";
-    e.style.height="12px";
-    e.style.background=["#ff6fa3","#ffd1dc","#ffd166"][Math.floor(Math.random()*3)];
-    e.style.position="absolute";
-    e.style.animation=`fall ${2+Math.random()*2}s linear forwards`;
-    c.appendChild(e);
+    const el = document.createElement('div');
+    el.className='piece';
+    el.style.left = Math.random()*100 + '%';
+    el.style.background = ['#ff6fa3','#ffd166','#9ad3bc','#ffd1dc'][Math.floor(Math.random()*4)];
+    el.style.transform = `translateY(-20vh) rotate(${Math.random()*360}deg)`;
+    el.style.opacity = '1';
+    el.style.width = (6+Math.random()*10)+'px';
+    el.style.height = (10+Math.random()*12)+'px';
+    el.style.top = (Math.random()*30)+'%';
+    el.style.animation = `fall ${2+Math.random()*2.5}s linear forwards`;
+    container.appendChild(el);
   }
-  const s=document.createElement("style");
-  s.innerHTML="@keyframes fall{to{transform:translateY(120vh) rotate(360deg);opacity:0}}";
+  const s = document.createElement('style');
+  s.innerHTML = `@keyframes fall{to{transform:translateY(120vh) rotate(360deg);opacity:0}}`;
   document.head.appendChild(s);
 }
 
-/* ===== PETALS ===== */
+/* ================= FLOATING PETALS ================= */
+let petalsTimer=null;
+
 function startPetals(){
-  const p=document.getElementById("petals");
-  p.innerHTML="";
-  let c=0;
-  const t=setInterval(()=>{
-    if(c>50){clearInterval(t);return;}
-    const e=document.createElement("div");
-    e.className="petal";
-    e.style.left=Math.random()*100+"%";
-    e.style.top="-5%";
-    e.style.animation=`petalFall ${5+Math.random()*4}s linear forwards`;
-    p.appendChild(e);
-    c++;
-  },120);
-  const s=document.createElement("style");
-  s.innerHTML="@keyframes petalFall{to{transform:translateY(110vh) rotate(720deg);opacity:.2}}";
+  const area = document.getElementById('petals');
+  area.innerHTML='';
+  let count = 0;
+  petalsTimer && clearInterval(petalsTimer);
+  petalsTimer = setInterval(()=>{
+    if(count>50){ clearInterval(petalsTimer); return; }
+    const p = document.createElement('div');
+    p.className='petal';
+    p.style.left = Math.random()*100 + '%';
+    p.style.top = '-5%';
+    const rot = Math.random()*360;
+    const dur = 5 + Math.random()*4;
+    p.style.transform = `rotate(${rot}deg)`;
+    p.style.animation = `petalFall ${dur}s linear forwards`;
+    area.appendChild(p);
+    count++;
+  }, 120);
+  const s = document.createElement('style');
+  s.innerHTML = `@keyframes petalFall{to{transform:translateY(110vh) rotate(720deg);opacity:.2}}`;
   document.head.appendChild(s);
 }
