@@ -22,36 +22,35 @@
         </div>
       </div>
 
-      <!-- ===== RIGHT SIDE : SAME PLACE TRANSITION ===== -->
+      <!-- ===== RIGHT SIDE : SAME FRAME TRANSITION ===== -->
       <div class="hero-right">
-        <div class="stage">
+        <div class="stage" id="stage">
 
-          <!-- 🌷 Tulip Bouquet (TOP layer) -->
-          <div id="bouquet" class="bouquet">
-            <img src="{{ url_for('static', filename='img/tulip1.jpg') }}" class="tulip-img" alt="tulip">
-            <img src="{{ url_for('static', filename='img/tulip2.jpg') }}" class="tulip-img" alt="tulip">
-            <p class="tap-note">Tap the bouquet 🌷</p>
-          </div>
+          <!-- 🌷 SINGLE TULIP BOUQUET -->
+          <img
+            id="bouquet"
+            src="{{ url_for('static', filename='img/tulip1.jpg') }}"
+            class="bouquet-img"
+            alt="Tulip Bouquet"
+          >
 
-          <!-- 🖼️ Photo (SAME PLACE, hidden initially) -->
-          <div class="photo-layer">
-            <img
-              id="photo"
-              src="{{ photos[0] if photos else '' }}"
-              alt="photo">
-          </div>
+          <!-- 🖼️ PHOTO (same place, hidden initially) -->
+          <img
+            id="photo"
+            class="stage-photo"
+            src=""
+            alt="photo"
+          >
+
+          <!-- 👇 TAP TEXT BELOW IMAGE -->
+          <div class="tap-hint" id="tapHint">Tap on bouquet 🌷</div>
 
         </div>
       </div>
     </header>
 
-    <!-- ================= CONTROLS + FOOTER ================= -->
+    <!-- ================= FOOTER ================= -->
     <section class="card gallery">
-      <div class="controls">
-        <button class="btn" id="prev">◀ Prev</button>
-        <button class="btn" id="next">Next ▶</button>
-      </div>
-
       <p class="footer-note">
         Specially for bail 🐂 ladki and the best ladki ever 💖
       </p>
